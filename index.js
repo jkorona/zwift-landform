@@ -2,7 +2,7 @@ const assert = require('assert');
 const ZwiftAccount = require("zwift-mobile-api");
 
 function checkEnvironment() {
-  const ERROR_MESSAGE = 'Missing environment variables: ZWIFT_USER, ERROR_MESSAGE. Please provide them.';
+  const ERROR_MESSAGE = 'Missing environment variables: ZWIFT_USER, ZWIFT_PASSWORD. Please provide them.';
 
   assert(process.env.ZWIFT_USER, ERROR_MESSAGE);
   assert(process.env.ZWIFT_PASSWORD, ERROR_MESSAGE);

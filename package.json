@@ -7,6 +7,10 @@
     "start": "source .bash_profile && node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkorona/zwift-landform.git"
+  },
   "keywords": [
     "zwift"
   ],

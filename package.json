@@ -1,0 +1,17 @@
+{
+  "name": "zwift-landform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "zwift"
+  ],
+  "author": "Jan Korona <jan.korona@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "zwift-mobile-api": "^0.3.1"
+  }
+}

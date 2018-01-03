@@ -1,8 +1,22 @@
 <html>
-  <head>
-    <title>Zwift Landform</title>
-  </head>
-  <body>
-    <h1>Hello World</h1>
-  </body>
+
+<head>
+  <title>Zwift Landform</title>
+</head>
+
+<body>
+  <h1>Hello Zwifter</h1>
+
+  <script type="application/javascript">
+    async function loadRoutes() {
+      const response = await fetch('/routes');
+      const routes = await response.json();
+
+      console.log(routes);
+    }
+
+    loadRoutes();
+  </script>
+</body>
+
 </html>

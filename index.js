@@ -1,11 +1,17 @@
 const httpServer = require('./server/http.server');
-const stravaConnector = require('./server/connectors/strava.connector');
+
+const DataSource = require('./server/storage/data-source');
+const MockStorage = require('./server/storage/mock.store');
 
 // httpServer.start();
 
-stravaConnector.loadSegment('12136784').then((segment) => {
-  console.log(segment);
-})
-.catch((error) => {
-  console.log(error);
-});
+const dataSource = new DataSource(new MockStorage());
+
+dataSource.getRoute('12136784')
+  .then((route) => {
+    console.log(route);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+

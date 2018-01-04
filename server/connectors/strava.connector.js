@@ -19,11 +19,10 @@ const config = configure();
 module.exports = {
   loadSegment(id) {
     const url = `${config.host}/v${config.version}/${config.resourceName}/${id}/streams/altitude`;
-    console.log(url);
     const headers = {
       Authorization: `Bearer ${config.accessToken}`
     };
 
-    return axios.get(url, { headers });
+    return axios.get(url, { headers }).then(({ data }) => data);
   }
 }

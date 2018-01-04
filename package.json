@@ -17,6 +17,7 @@
   "author": "Jan Korona <jan.korona@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.17.1",
     "zwift-mobile-api": "^0.3.1"
   }
 }

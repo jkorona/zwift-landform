@@ -5,17 +5,35 @@
 </head>
 
 <body>
-  <h1>Hello Zwifter</h1>
+  <div id="app">
+    <h1>{{ header }}</h1>
+    <h3>{{ caption }}</h3>
+    <ul>
+      <li v-for="route in routes">{{ route.label }}</li>
+    </ul>
+  </div>
 
-  <script type="application/javascript">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        header: 'Hello Zwifter!',
+        caption: 'Here\'s list of currently supported routes:',
+        routes: []
+      }
+    });
+
     async function loadRoutes() {
       const response = await fetch('/routes');
       const routes = await response.json();
 
-      console.log(routes);
+      app.routes = routes;
     }
 
     loadRoutes();
+
   </script>
 </body>
 

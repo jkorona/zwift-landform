@@ -27,8 +27,10 @@ class HttpServer {
       const resourceName = request.url.substr(1);
 
       if (resourceName) {
-        if (resourceHandlers.hasOwnProperty(resourceName)) {
-          this.callApi(resourceHandlers[resourceName], response);
+        const handler = this.findHandler(resourceHandlers, request.url);
+
+        if (handler) {
+          this.callApi(handler, response);
         } else {
           this.redirectToIndex(response);
         }
@@ -36,6 +38,24 @@ class HttpServer {
         this.sendIndexHtml(response);
       }
     };
+  }
+
+  findHandler(handlers, url) {
+    function checkNextHandler(iterator) {
+      if (!iterator.done) {
+        const { pattern, handler } = iterator.value;
+        const matches = pattern.exec(url);
+        if (matches) {
+          return handler;
+        } else {
+          return checkNextHandler(iterator.next());
+        }
+      }
+
+      return null;
+    }
+
+    return checkNextHandler(handlers[Symbol.iterator]().next())
   }
 
   callApi(handler, response) {

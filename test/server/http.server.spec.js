@@ -58,7 +58,7 @@ describe('HttpServer', () => {
 
     it('should return index.html file for root requests', () => {
       // given
-      const handler = httpServer.createHttpHandler({});
+      const handler = httpServer.createHttpHandler([]);
 
       fakeRequest.url = '/';
       fsMock.readFile.callsFake((path, callbackFn) => {
@@ -80,9 +80,9 @@ describe('HttpServer', () => {
 
     it('should call api when corresponding resource handler available', () => {
       // given
-      const handler = httpServer.createHttpHandler({
-        'routes': () => ['foo', 'bar']
-      });
+      const handler = httpServer.createHttpHandler([
+        { pattern: /\/routes/g, handler: () =>  ['foo', 'bar']}
+      ]);
       fakeRequest.url = '/routes';
 
       // when
@@ -105,7 +105,7 @@ describe('HttpServer', () => {
 
     it('should redirect to root page if resource handler not available', () => {
       // given
-      const handler = httpServer.createHttpHandler({});
+      const handler = httpServer.createHttpHandler([]);
       fakeRequest.url = '/foobar';
   
       // when

@@ -2,7 +2,8 @@ class HttpServer {
 
   static get DEFAULT_CONFIG() {
     return {
-      port: 3000
+      port: 3000,
+      indexPath: 'client/index.html'
     };
   };
 
@@ -12,21 +13,17 @@ class HttpServer {
   }
 
   start(resourceHandlers = {}, config = {}) {
-    config = Object.assign({}, HttpServer.DEFAULT_CONFIG, config);
+    this.config = Object.assign({}, HttpServer.DEFAULT_CONFIG, config);
 
     const server = this.http
       .createServer(this.createHttpHandler(resourceHandlers))
-      .listen(config.port);
-
-    console.log(`Http Server started on port ${config.port}...`);
+      .listen(this.config.port);
 
     return server;
   }
 
   createHttpHandler(resourceHandlers) {
     return (request, response) => {
-      console.log(`Retrieved request to url ${request.url}...`);
-
       const resourceName = request.url.substr(1);
 
       if (resourceName) {
@@ -44,7 +41,7 @@ class HttpServer {
   callApi(handler, response) {
     Promise.resolve(handler())
       .then((data) => {
-        response.writeHead('200', { 'Content-Type': 'application/json' })
+        response.writeHead(200, { 'Content-Type': 'application/json' })
         response.write(JSON.stringify(data));
         response.end();
       });
@@ -56,7 +53,7 @@ class HttpServer {
   }
 
   sendIndexHtml(response) {
-    this.fs.readFile('client/index.html', function (err, data) {
+    this.fs.readFile(this.config.indexPath, function (err, data) {
       response.writeHead(200, { 'Content-Type': 'text/html' });
       response.write(data);
       response.end();

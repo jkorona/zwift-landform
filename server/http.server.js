@@ -27,10 +27,10 @@ class HttpServer {
       const resourceName = request.url.substr(1);
 
       if (resourceName) {
-        const handler = this.findHandler(resourceHandlers, request.url);
+        const apiCall = this.findApiCall(resourceHandlers, request.url);
 
-        if (handler) {
-          this.callApi(handler, response);
+        if (apiCall) {
+          this.callApi(apiCall, response);
         } else {
           this.redirectToIndex(response);
         }
@@ -40,26 +40,28 @@ class HttpServer {
     };
   }
 
-  findHandler(handlers, url) {
-    function checkNextHandler(iterator) {
+  findApiCall(handlers, url) {
+    function iterate(iterator) {
       if (!iterator.done) {
         const { pattern, handler } = iterator.value;
         const matches = pattern.exec(url);
         if (matches) {
-          return handler;
+          return { handler, args: matches.slice(1) };
         } else {
-          return checkNextHandler(iterator.next());
+          return iterate(iterator.next());
         }
       }
 
       return null;
     }
+    
+    const iterator = handlers[Symbol.iterator]();
 
-    return checkNextHandler(handlers[Symbol.iterator]().next())
+    return iterate(iterator.next())
   }
 
-  callApi(handler, response) {
-    Promise.resolve(handler())
+  callApi({ handler, args }, response) {
+    Promise.resolve(handler.apply(null, args))
       .then((data) => {
         response.writeHead(200, { 'Content-Type': 'application/json' })
         response.write(JSON.stringify(data));

@@ -100,7 +100,25 @@ describe('HttpServer', () => {
             .calledOnce
           );
           assert(fakeResponse.end.calledOnce);
-        })
+        });
+    });
+
+    it('should be able to call api with parameters', () => {
+      // given
+      const resourceHandler = sinon.stub().returns(['foo', 'bar'])
+      const handler = httpServer.createHttpHandler([
+        { pattern: /^\/routes\/(\w+)\/(\d+)$/g, handler: resourceHandler}
+      ]);
+      fakeRequest.url = '/routes/watopia/123';
+      
+      // when
+      handler(fakeRequest, fakeResponse);
+
+      // then
+      return Promise.resolve()
+      .then(() => {
+        assert(resourceHandler.withArgs('watopia', '123').calledOnce);
+      });
     });
 
     it('should redirect to root page if resource handler not available', () => {

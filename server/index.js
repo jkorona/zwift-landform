@@ -12,13 +12,9 @@ module.exports = {
   boot() {
     const httpServer = new HttpServer(http, fs);
 
-    httpServer.start({
-      route() {
-        return dataSource.getRoute('12136784')
-      },
-      routes() {
-        return dataSource.getAllRoutes();
-      }
-    });
+    httpServer.start([
+      { pattern: /^\/routes$/, handler: () => dataSource.getAllRoutes() },
+      { pattern: /^\/routes\/(\d+)$/, handler: (routeId) => dataSource.getRoute(routeId) }
+    ]);
   }
 }

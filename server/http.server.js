@@ -42,13 +42,14 @@ class HttpServer {
 
   findApiCall(handlers, url) {
     function iterate(iterator) {
-      if (!iterator.done) {
-        const { pattern, handler } = iterator.value;
+      const { value, done } = iterator.next();
+      if (!done) {
+        const { pattern, handler } = value;
         const matches = pattern.exec(url);
         if (matches) {
           return { handler, args: matches.slice(1) };
         } else {
-          return iterate(iterator.next());
+          return iterate(iterator);
         }
       }
 
@@ -57,7 +58,7 @@ class HttpServer {
     
     const iterator = handlers[Symbol.iterator]();
 
-    return iterate(iterator.next())
+    return iterate(iterator)
   }
 
   callApi({ handler, args }, response) {

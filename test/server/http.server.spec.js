@@ -107,6 +107,7 @@ describe('HttpServer', () => {
       // given
       const resourceHandler = sinon.stub().returns(['foo', 'bar'])
       const handler = httpServer.createHttpHandler([
+        { pattern: /^\/routes$/g, handler: () => 0},
         { pattern: /^\/routes\/(\w+)\/(\d+)$/g, handler: resourceHandler}
       ]);
       fakeRequest.url = '/routes/watopia/123';

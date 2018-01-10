@@ -18,7 +18,7 @@ const config = configure();
 
 module.exports = {
   loadSegment(id) {
-    const url = `${config.host}/v${config.version}/${config.resourceName}/${id}/streams/altitude`;
+    const url = `${config.host}/v${config.version}/${config.resourceName}/${id}/streams`;
     const headers = {
       Authorization: `Bearer ${config.accessToken}`
     };

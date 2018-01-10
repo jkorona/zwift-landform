@@ -21,9 +21,10 @@ const user = {
 
 const account = new ZwiftAccount(user.name, user.password);
 
-// account.getProfile().profile().then(p => {
-//   console.log(p);
-// });
+account.getProfile().profile()
+  .then(({ id }) => account.getWorld(1).riderStatus(id))
+  .then((status) => console.log(status));
+
 
 // account.getWorld(1).riders()
 //   .then((riders) => console.log(riders.friendsInWorld[0]), (e) => console.log('error', e))

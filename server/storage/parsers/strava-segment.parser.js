@@ -8,6 +8,6 @@ module.exports = function (segment) {
   const [firstSerie, secondSerie] = segment;
   return firstSerie.data.map((item, index) => ({
     [firstSerie.type]: item,
-    [secondSerie.type]: firstSerie.data[index]
+    [secondSerie.type]: secondSerie.data[index]
   }));
 };

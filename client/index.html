@@ -9,8 +9,22 @@
     <h1>{{ header }}</h1>
     <h3>{{ caption }}</h3>
     <ul>
-      <li v-for="route in routes">{{ route.label }}</li>
+      <li v-for="route in routes" v-on:click="loadRoute(route.stravaId)">{{ route.label }}</li>
     </ul>
+    <div v-if="selectedRoute">
+      <table>
+        <thead>
+          <th>Distance</th>
+          <th>Altitude</th>
+        </thead>
+        <tbody>
+          <tr v-for="milestone in selectedRoute">
+            <td>{{ milestone.distance }}</td>
+            <td>{{ milestone.altitude }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -21,7 +35,13 @@
       data: {
         header: 'Hello Zwifter!',
         caption: 'Here\'s list of currently supported routes:',
-        routes: []
+        routes: [],
+        selectedRoute: null
+      },
+      methods: {
+        loadRoute: (id) => fetch(`/routes/${id}`)
+          .then(response => response.json())
+          .then(route => app.selectedRoute = route)
       }
     });
 

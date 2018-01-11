@@ -12,6 +12,19 @@ function decodeBase64(code) {
   return Buffer.from(code, 'base64').toString('ascii');
 }
 
+const WORLDS = [
+  { lat: [348.3551, 11050000, 1], lng: [166.9529, 10840000, 1] },
+  { lat: [37.54303, 11080000, 1], lng: [282.56252, 8790000, 1] },
+  { lat: [359.8321, 6940000, 1], lng: [51.5017, 11120000, -1] }
+];
+
+function mapToGeo(x, y, worldId) {
+  const { lat, lng } = WORDLDS[worldId];
+  const transform = (v, consts) => consts[2] * ((v / consts[0]) + consts[1]);
+
+  return [transform(x, lat), transform(y, lng)];
+}
+
 checkEnvironment();
 
 const user = {

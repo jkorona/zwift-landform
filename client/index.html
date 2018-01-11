@@ -9,18 +9,20 @@
     <h1>{{ header }}</h1>
     <h3>{{ caption }}</h3>
     <ul>
-      <li v-for="route in routes" v-on:click="loadRoute(route.stravaId)">{{ route.label }}</li>
+      <li v-for="route in routes" v-on:click="loadRoute(route.stravaId)">{{ route.worldLabel }} - {{ route.label }}</li>
     </ul>
     <div v-if="selectedRoute">
       <table>
         <thead>
           <th>Distance</th>
           <th>Altitude</th>
+          <th>Coordinates</th>
         </thead>
         <tbody>
           <tr v-for="milestone in selectedRoute">
             <td>{{ milestone.distance }}</td>
             <td>{{ milestone.altitude }}</td>
+            <td>{{ milestone.latlng[0] }} : {{  milestone.latlng[1] }}</td>
           </tr>
         </tbody>
       </table>

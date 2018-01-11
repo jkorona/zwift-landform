@@ -4,7 +4,7 @@ const stravaSegmentParser = require('../../../../server/storage/parsers/strava-s
 
 describe('stravaSegmentParser', () => {
 
-  it('should properly parser whole streams into milestone objects', () => {
+  it('should properly parse whole streams into milestone objects', () => {
     // given
     const stravaStream = require('./fixtures/strava-segment-stream');
 

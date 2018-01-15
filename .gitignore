@@ -1,2 +1,4 @@
 node_modules/
 .bash_profile
+.vscode/
+.env

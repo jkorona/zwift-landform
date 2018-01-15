@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "source .bash_profile && node index.js",
-    "test": "mocha"
+    "start": "node index.js",
+    "test": "mocha",
+    "env": "source .bash_profile"
   },
   "repository": {
     "type": "git",

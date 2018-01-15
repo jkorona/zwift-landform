@@ -59,6 +59,14 @@
 
     var socket = io();
 
+    socket.on('riderStatus', (position) => {
+      console.log(`new position ${JSON.stringify(position, null, 3)}`);
+    });
+
+    socket.on('riderDisconnected', (error) => {
+      console.log('riderDisconnected');
+    });
+
   </script>
 </body>
 

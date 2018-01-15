@@ -1,5 +1,6 @@
 const assert = require('assert');
-const ZwiftAccount = require("zwift-mobile-api");
+const ZwiftAccount = require('zwift-mobile-api');
+const riderStatusParser = require('../parsers/zwift-rider-status.parser');
 
 function checkEnvironment() {
   const ERROR_MESSAGE = 'Missing environment variables: ZWIFT_USER, ZWIFT_PASSWORD. Please provide them.';
@@ -12,19 +13,6 @@ function decodeBase64(code) {
   return Buffer.from(code, 'base64').toString('ascii');
 }
 
-const WORLDS = [
-  { lat: [348.3551, 11050000, 1], lng: [166.9529, 10840000, 1] },
-  { lat: [37.54303, 11080000, 1], lng: [282.56252, 8790000, 1] },
-  { lat: [359.8321, 6940000, 1], lng: [51.5017, 11120000, -1] }
-];
-
-function mapToGeo(x, y, worldId) {
-  const { lat, lng } = WORDLDS[worldId];
-  const transform = (v, consts) => consts[2] * ((v / consts[0]) + consts[1]);
-
-  return [transform(x, lat), transform(y, lng)];
-}
-
 checkEnvironment();
 
 const user = {
@@ -32,12 +20,39 @@ const user = {
   password: decodeBase64(process.env.ZWIFT_PASSWORD)
 };
 
-const account = new ZwiftAccount(user.name, user.password);
+let zwiftConnector;
+class ZwiftConnector {
 
-account.getProfile().profile()
-  .then(({ id }) => account.getWorld(1).riderStatus(id))
-  .then((status) => console.log(status));
+  static get instance() {
+    if (!zwiftConnector) {
+      zwiftConnector = new ZwiftConnector();
+    }
+    return zwiftConnector;
+  }
 
+  constructor() {
+    const account = new ZwiftAccount(user.name, user.password);
 
-// account.getWorld(1).riders()
-//   .then((riders) => console.log(riders.friendsInWorld[0]), (e) => console.log('error', e))
+    this.account = account;
+    this.profilePromise = account.getProfile().profile();
+  }
+
+  track(socket) {
+    const id = setInterval(() => {
+      this.profilePromise
+        .then(({ id }) => this.account.getWorld(1).riderStatus(id))
+        .then((status) => {
+          socket.send('riderStatus', riderStatusParser(status))
+        })
+        .catch((err) => {
+          socket.send('riderDisconnected', err.response.status);
+        });
+
+    }, 2000);
+
+    socket.whenDisconnected(() => clearInterval(id));
+  }
+
+}
+
+module.exports = ZwiftConnector;

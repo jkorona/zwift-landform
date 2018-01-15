@@ -1,5 +1,5 @@
 const stravaConnector = require('../connectors/strava.connector');
-const stravaSegmentParser = require('./parsers/strava-segment.parser');
+const stravaSegmentParser = require('../parsers/strava-segment.parser');
 
 class DataStore {
 

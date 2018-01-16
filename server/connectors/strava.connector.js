@@ -1,28 +1,37 @@
 const axios = require('axios');
 const assert = require('assert');
 
-function configure() {
-  const ERROR_MESSAGE = 'Missing environment variable: STRAVA_ACCESS_TOKEN. Please provide it.';
+const stravaSegmentParser = require('./parsers/strava-segment.parser');
 
-  assert(process.env.STRAVA_ACCESS_TOKEN, ERROR_MESSAGE);
+class StravaConnector {
 
-  return {
-    accessToken: process.env.STRAVA_ACCESS_TOKEN,
-    host: 'https://www.strava.com/api',
-    version: 3,
-    resourceName: 'segments'
+  static configure() {
+    const ERROR_MESSAGE = 'Missing environment variable: STRAVA_ACCESS_TOKEN. Please provide it.';
+
+    assert(process.env.STRAVA_ACCESS_TOKEN, ERROR_MESSAGE);
+
+    return {
+      accessToken: process.env.STRAVA_ACCESS_TOKEN,
+      host: 'https://www.strava.com/api',
+      version: 3,
+      resourceName: 'segments'
+    }
   }
-}
 
-const config = configure();
+  constructor() {
+    this.config = StravaConnector.configure();
+  }
 
-module.exports = {
   loadSegment(id) {
-    const url = `${config.host}/v${config.version}/${config.resourceName}/${id}/streams`;
+    const { host, version, resourceName, accessToken } = this.config;
+    const url = `${host}/v${version}/${resourceName}/${id}/streams`;
     const headers = {
-      Authorization: `Bearer ${config.accessToken}`
+      Authorization: `Bearer ${accessToken}`
     };
 
-    return axios.get(url, { headers }).then(({ data }) => data);
+    return axios.get(url, { headers }).then(({ data }) => stravaSegmentParser(data));
   }
+
 }
+
+module.exports = new StravaConnector();

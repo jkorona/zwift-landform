@@ -1,6 +1,6 @@
 const assert = require('assert');
 const ZwiftAccount = require('zwift-mobile-api');
-const riderStatusParser = require('../parsers/zwift-rider-status.parser');
+const riderStatusParser = require('./parsers/zwift-rider-status.parser');
 
 function checkEnvironment() {
   const ERROR_MESSAGE = 'Missing environment variables: ZWIFT_USER, ZWIFT_PASSWORD. Please provide them.';

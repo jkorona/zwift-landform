@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 
-const stravaSegmentParser = require('../../../../server/parsers/strava-segment.parser');
+const stravaSegmentParser = require('../../../../server/connectors/parsers/strava-segment.parser');
 
 describe('stravaSegmentParser', () => {
 

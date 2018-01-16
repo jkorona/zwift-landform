@@ -1,5 +1,4 @@
 const stravaConnector = require('../connectors/strava.connector');
-const stravaSegmentParser = require('../parsers/strava-segment.parser');
 
 class DataStore {
 
@@ -25,7 +24,6 @@ class DataStore {
   loadStravaSegment(id) {
     return stravaConnector
       .loadSegment(id)
-      .then((stravaSegment) => stravaSegmentParser(stravaSegment))
       .then((route) => this.store.route(route));
   }
 

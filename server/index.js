@@ -12,21 +12,12 @@ const ZwiftConnector = require('./connectors/zwift.connector');
 
 const dataSource = new DataSource(new MockStorage());
 
-function dec(id){
-  console.log('evaluated', id);
-  return (target, property, descriptor) => console.log('executed', id);
-}
+const httpServer = new HttpServer(http, fs);
+const wsServer = new WebSocketServer(sockets);
 
-module.exports = {
-  boot() {
-    const httpServer = new HttpServer(http, fs);
-    const wsServer = new WebSocketServer(sockets);
+const app = httpServer.start([
+  { pattern: /^\/routes$/, handler: () => dataSource.getAllRoutes() },
+  { pattern: /^\/routes\/(\d+)$/, handler: (routeId) => dataSource.getRoute(routeId) }
+]);
 
-    const app = httpServer.start([
-      { pattern: /^\/routes$/, handler: () => dataSource.getAllRoutes() },
-      { pattern: /^\/routes\/(\d+)$/, handler: (routeId) => dataSource.getRoute(routeId) }
-    ]);
-
-    const ws = wsServer.start(app, (socketWrapper) => ZwiftConnector.instance.track(socketWrapper));
-  }
-}
+const ws = wsServer.start(app, (socketWrapper) => ZwiftConnector.instance.track(socketWrapper));

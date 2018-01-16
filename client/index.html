@@ -12,6 +12,8 @@
       <li v-for="route in routes" v-on:click="loadRoute(route.stravaId)">{{ route.worldLabel }} - {{ route.label }}</li>
     </ul>
     <div v-if="selectedRoute">
+      Tracking:
+      <button v-on:click="switchTracking()">{{ socket ? 'Stop' : 'Start' }}</button>
       <table>
         <thead>
           <th>Distance</th>
@@ -22,7 +24,7 @@
           <tr v-for="milestone in selectedRoute">
             <td>{{ milestone.distance }}</td>
             <td>{{ milestone.altitude }}</td>
-            <td>{{ milestone.latlng[0] }} : {{  milestone.latlng[1] }}</td>
+            <td>{{ milestone.latlng[0] }} : {{ milestone.latlng[1] }}</td>
           </tr>
         </tbody>
       </table>
@@ -39,12 +41,30 @@
         header: 'Hello Zwifter!',
         caption: 'Here\'s list of currently supported routes:',
         routes: [],
-        selectedRoute: null
+        selectedRoute: null,
+        socket: null,
       },
       methods: {
-        loadRoute: (id) => fetch(`/routes/${id}`)
-          .then(response => response.json())
-          .then(route => app.selectedRoute = route)
+        loadRoute(id) {
+          fetch(`/routes/${id}`)
+            .then(response => response.json())
+            .then(route => this.selectedRoute = route)
+            .then(() => this.socket && this.stopTracking())
+        },
+        switchTracking() {
+          if (this.socket) {
+            this.stopTracking();
+          } else {
+            this.socket = startTracking();
+          }
+        },
+        stopTracking() {
+          this.socket.close();
+          this.socket = null;
+        }
+      },
+      created() {
+        loadRoutes();
       }
     });
 
@@ -55,17 +75,19 @@
       app.routes = routes;
     }
 
-    loadRoutes();
+    function startTracking() {
+      const socket = io();
 
-    var socket = io();
+      socket.on('riderStatus', (position) => {
+        console.log(`new position ${JSON.stringify(position, null, 3)}`);
+      });
 
-    socket.on('riderStatus', (position) => {
-      console.log(`new position ${JSON.stringify(position, null, 3)}`);
-    });
+      socket.on('riderDisconnected', (error) => {
+        console.log('riderDisconnected');
+      });
 
-    socket.on('riderDisconnected', (error) => {
-      console.log('riderDisconnected');
-    });
+      return socket;
+    }
 
   </script>
 </body>

@@ -24,7 +24,6 @@ const WORLDS = {
 
 function mapToGeo(x, y, worldId = 3) {
   const { fn } = WORLDS[worldId];
-
   return fn(x, y);
 }
 

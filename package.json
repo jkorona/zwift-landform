@@ -7,7 +7,7 @@
     "start": "nodemon server --exec babel-node",
     "build": "babel server -d dist",
     "serve": "node dist/index.js",
-    "test": "mocha"
+    "test": "mocha --require babel-core/register"
   },
   "repository": {
     "type": "git",

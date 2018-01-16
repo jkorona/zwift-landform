@@ -45,6 +45,9 @@ describe('HttpServer', () => {
 
   describe('http handler', () => {
 
+    let fakeRequest;
+    let fakeResponse;
+
     beforeEach(() => {
       fakeRequest = {};
       fakeResponse = {

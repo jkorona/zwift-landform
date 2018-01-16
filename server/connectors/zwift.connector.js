@@ -45,7 +45,11 @@ class ZwiftConnector {
           socket.send('riderStatus', riderStatusParser(status))
         })
         .catch((err) => {
-          socket.send('riderDisconnected', err.response.status);
+          if (err.response) {
+            socket.send('riderDisconnected', err.response.status);
+          } else {
+            console.log(err);
+          }
         });
 
     }, 2000);

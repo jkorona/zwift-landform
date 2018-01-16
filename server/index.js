@@ -12,6 +12,11 @@ const ZwiftConnector = require('./connectors/zwift.connector');
 
 const dataSource = new DataSource(new MockStorage());
 
+function dec(id){
+  console.log('evaluated', id);
+  return (target, property, descriptor) => console.log('executed', id);
+}
+
 module.exports = {
   boot() {
     const httpServer = new HttpServer(http, fs);

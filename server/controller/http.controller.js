@@ -1,5 +1,6 @@
-const { Endpoint } = require('../connection/http');
+const { HttpController, Endpoint } = require('../connection/http');
 
+@HttpController
 class HttpController {
 
   controller(dataSource) {

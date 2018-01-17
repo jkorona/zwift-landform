@@ -2,7 +2,7 @@ const { expect } = require('chai');
 
 const stravaSegmentParser = require('../../../../server/integration/parsers/strava-segment.parser');
 
-describe('stravaSegmentParser', () => {
+describe('stravaSegmentParser()', () => {
 
   it('should properly parse whole streams into milestone objects', () => {
     // given

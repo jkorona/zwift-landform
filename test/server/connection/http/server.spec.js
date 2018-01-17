@@ -1,9 +1,9 @@
 const { expect, assert } = require('chai');
 const sinon = require('sinon');
 
-const HttpServer = require('../../server/http.server');
+const HttpServer = require('../../../../server/connection/http/server');
 
-describe('HttpServer', () => {
+describe('class HttpServer', () => {
 
   let httpServer;
   let httpMock;

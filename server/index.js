@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const sockets = require('socket.io');
 
-const HttpServer = require('./http.server');
+const { HttpServer } = require('./connection/http');
 const WebSocketServer = require('./ws.server');
 
 const DataSource = require('./storage/data-source');

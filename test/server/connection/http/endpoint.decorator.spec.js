@@ -32,10 +32,7 @@ describe('@Endpoint', () => {
   it('should register method in the static `$$endpoints` class property', () => {
     expect(mock.$$endpoints).to.be.ok;
     expect(mock.$$endpoints).to.have.lengthOf(2);
-    expect(mock.$$endpoints).to.eql([
-      mock.routes,
-      mock.route
-    ]);
+    expect(mock.$$endpoints).to.eql(['routes', 'route']);
   });
 
 });

@@ -16,7 +16,7 @@ function Endpoint(pattern) {
     value.$$matches = createMatchFunction(pattern);
 
     target.$$endpoints = (target.$$endpoints || [])
-    target.$$endpoints.push(value);
+    target.$$endpoints.push(property);
   }
 }
 

@@ -3,12 +3,12 @@ const { HttpController, Endpoint } = require('../../../../../server/connection/h
 @HttpController
 class MockController {
 
-  @Endpoint(/^\/routes$/g)
+  @Endpoint(/^\/routes$/)
   routes() {
     
   }
 
-  @Endpoint(/^\/routes\/(\w+)\/(\d+)$/g)
+  @Endpoint(/^\/routes\/(\w+)\/(\d+)$/)
   route(id, number) {
 
   }

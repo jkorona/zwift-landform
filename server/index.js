@@ -8,7 +8,7 @@ const WebSocketServer = require('./ws.server');
 const DataSource = require('./storage/data-source');
 const MockStorage = require('./storage/mock.store');
 
-const ZwiftConnector = require('./connectors/zwift.connector');
+const ZwiftIntegration = require('./integration/zwift.integration');
 
 const dataSource = new DataSource(new MockStorage());
 
@@ -20,4 +20,4 @@ const app = httpServer.start([
   { pattern: /^\/routes\/(\d+)$/, handler: (routeId) => dataSource.getRoute(routeId) }
 ]);
 
-const ws = wsServer.start(app, (socketWrapper) => ZwiftConnector.instance.track(socketWrapper));
+const ws = wsServer.start(app, (socketWrapper) => ZwiftIntegration.instance.track(socketWrapper));

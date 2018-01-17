@@ -1,4 +1,4 @@
-const stravaConnector = require('../connectors/strava.connector');
+const stravaConnector = require('../integration/strava.integration');
 
 class DataStore {
 

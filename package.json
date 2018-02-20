@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server --exec babel-node",
+    "start": "npm run server & npm run client",
+    "server": "nodemon server --exec babel-node",
+    "client": "cd fe/zwift-landform && npm start",
     "build": "babel server -d dist",
     "serve": "node dist/index.js",
     "test": "mocha --require babel-core/register"

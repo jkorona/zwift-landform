@@ -2,22 +2,61 @@
   <div>
     <h1>{{ header }}</h1>
     <h3>{{ caption }}</h3>
+    <ul>
+      <li v-for="route in routes" v-bind:key="route.label" v-on:click="loadRoute(route.stravaId)">
+        {{ route.worldLabel }} - {{ route.label }}
+      </li>
+    </ul>
+    <div v-if="selectedRoute">
+      Tracking:
+      <button v-on:click="switchTracking()">{{ socket ? 'Stop' : 'Start' }}</button>
+      <table>
+        <thead>
+          <th>Distance</th>
+          <th>Altitude</th>
+          <th>Coordinates</th>
+        </thead>
+        <tbody>
+          <tr v-for="(milestone, index) in selectedRoute"
+              v-bind:key="index"
+              v-bind:class="{ 'current-position': index === currentIndex }"
+          >
+            <td>{{ milestone.distance }}</td>
+            <td>{{ milestone.altitude }}</td>
+            <td>{{ milestone.latlng[0] }} : {{ milestone.latlng[1] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import io from 'socket.io-client'
-const socket = io()
 
-socket.on('riderStatus', (position) => {
-  console.log(`new position ${JSON.stringify(position, null, 3)}`)
-})
+function findPosition (eLat, eLng, route) {
+  function precisionRound (number, precision) {
+    var factor = Math.pow(10, precision)
+    return Math.round(number * factor) / factor
+  }
 
-socket.on('riderDisconnected', (error) => {
-  console.log('riderDisconnected: ', error)
-})
+  let index = -1
+  eLat = precisionRound(eLat, 4)
+  eLng = precisionRound(eLng, 4)
 
-export default {
+  index = route.findIndex(({ latlng }) => {
+    let [lat, lng] = latlng
+
+    lat = precisionRound(lat, 4)
+    lng = precisionRound(lng, 4)
+
+    return eLat === lat && eLng === lng
+  })
+
+  return index
+}
+
+const AthleteTracker = {
   name: 'AthleteTracker',
   data: () => ({
     header: 'Hello Zwifter!',
@@ -26,11 +65,55 @@ export default {
     selectedRoute: null,
     socket: null,
     currentIndex: -1
-  })
+  }),
+  methods: {
+    loadRoute (id) {
+      fetch(`/api/routes/${id}`)
+        .then(response => response.json())
+        .then(route => (this.selectedRoute = route))
+        .then(() => this.socket && this.stopTracking())
+    },
+    switchTracking () {
+      if (this.socket) {
+        this.stopTracking()
+      } else {
+        this.startTracking()
+      }
+    },
+    startTracking () {
+      const socket = io()
+      const route = this.selectedRoute
+
+      socket.on('riderStatus', (position) => {
+        console.log(`new position ${JSON.stringify(position, null, 3)}`)
+        this.currentIndex = findPosition(position.lat, position.lng, route)
+      })
+
+      socket.on('riderDisconnected', (error) => {
+        console.log('riderDisconnected', error)
+      })
+
+      this.socket = socket
+    },
+    stopTracking () {
+      this.socket.close()
+      this.socket = null
+      this.currentIndex = -1
+    }
+  },
+  created () {
+    fetch('/api/routes')
+      .then(response => response.json())
+      .then(routes => (this.routes = routes))
+  }
 }
+
+export default AthleteTracker
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .current-position {
+    font-weight: bold;
+  }
 </style>

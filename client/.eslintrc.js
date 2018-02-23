@@ -26,7 +26,7 @@ module.exports = {
     'comma-dangle': 'off',
     'no-return-assign': 'off',
     'import/extensions': 'off',
-    'import/no-unresolved': 'warn',
+    'import/no-unresolved': 'off',
     'padded-blocks': 'off'
   }
 }

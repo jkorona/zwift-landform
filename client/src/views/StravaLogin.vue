@@ -1,6 +1,5 @@
 <template>
-  <container>
-    Strava Login
+  <container title="Strava Login">
     <router-link to="/tracker">Next</router-link>
   </container>
 </template>

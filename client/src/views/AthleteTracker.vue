@@ -1,5 +1,5 @@
 <template>
-  <container>
+  <container title="Tracker">
     <div class="athlete-tracker">
       <h1>{{ header }}</h1>
       <h3>{{ caption }}</h3>

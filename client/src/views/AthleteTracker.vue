@@ -123,7 +123,6 @@ export default AthleteTracker;
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .athlete-tracker {
-  padding-top: 25px;
 }
 
 .current-position {

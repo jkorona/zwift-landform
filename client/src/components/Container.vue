@@ -3,8 +3,10 @@
     <header>
       <h1 class="title">{{ title }}</h1>
     </header>
-    <main class="content">
-      <slot/>
+    <main class="panel">
+      <div class="content">
+        <slot/>
+      </div>
     </main>
   </div>
 </template>
@@ -19,7 +21,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@import '../styles/main';
+@import "../styles/main";
 
 .title {
   height: 5vh;
@@ -27,7 +29,7 @@ export default {
   font-size: 52px;
 }
 
-.content {
+.panel {
   width: 80vw;
   height: 80vh;
 
@@ -37,9 +39,13 @@ export default {
   border: white groove 3px;
   border-radius: 10px;
 
-  padding: 10px;
+  padding: 25px;
 
-  overflow: scroll;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+
+  .content {
+    height: 100%;
+    overflow: scroll;
+  }
 }
 </style>

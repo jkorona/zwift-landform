@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <transition
-      name="slide-fade"
+      enter-active-class="animated zoomIn"
+      leave-active-class="animated zoomOut"
       mode="out-in">
       <router-view/>
     </transition>

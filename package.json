@@ -22,6 +22,7 @@
   "author": "Jan Korona <jan.korona@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "animate.css": "^3.6.1",
     "axios": "^0.17.1",
     "socket.io": "^2.0.4",
     "zwift-mobile-api": "^0.3.1"

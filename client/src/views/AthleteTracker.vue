@@ -48,6 +48,10 @@ function findPosition(eLat, eLng, route) {
     return Math.round(number * factor) / factor;
   }
 
+  function matches(actual, expected, accurracy = 0.0001) {
+    return Math.abs(expected - actual) <= accurracy;
+  }
+
   let index = -1;
   const gLat = precisionRound(eLat, 4);
   const gLng = precisionRound(eLng, 4);
@@ -58,7 +62,7 @@ function findPosition(eLat, eLng, route) {
     lat = precisionRound(lat, 4);
     lng = precisionRound(lng, 4);
 
-    return gLat === lat && gLng === lng;
+    return matches(lat, gLat) && matches(lng, gLng);
   });
 
   return index;
@@ -94,7 +98,6 @@ const AthleteTracker = {
       const route = this.selectedRoute;
 
       socket.on('riderStatus', (position) => {
-        console.log(`new position ${JSON.stringify(position, null, 3)}`);
         this.currentIndex = findPosition(position.lat, position.lng, route);
       });
 
@@ -127,5 +130,6 @@ export default AthleteTracker;
 
 .current-position {
   font-weight: bold;
+  font-size: 18px;
 }
 </style>

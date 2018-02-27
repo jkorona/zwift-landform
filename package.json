@@ -24,6 +24,7 @@
   "dependencies": {
     "animate.css": "^3.6.1",
     "axios": "^0.17.1",
+    "glob": "^7.1.2",
     "socket.io": "^2.0.4",
     "zwift-mobile-api": "^0.3.1"
   },

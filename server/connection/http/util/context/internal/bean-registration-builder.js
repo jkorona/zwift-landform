@@ -1,5 +1,5 @@
 const assert = require('assert');
-const BeanScope = require("./bean-scope");
+const BeanScope = require('./bean-scope');
 
 class BeanRegistrationBuilder {
 

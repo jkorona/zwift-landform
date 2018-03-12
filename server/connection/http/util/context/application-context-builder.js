@@ -1,6 +1,7 @@
-const Context = require("./context");
-const Discoverable = require("./discoverable");
-const Injector = require("./injector");
+const Context = require('./context');
+
+const Discoverable = require('./extensions/discoverable');
+const Injector = require('./extensions/injector');
 
 class ApplicationContextBuilder {
   
@@ -27,12 +28,12 @@ class ApplicationContextBuilder {
   build() {
     this.context
       .register()
-      .withId("context")
+      .withId('context')
       .byInstance(this.context);
 
     this.context
       .register()
-      .withId("injector")
+      .withId('injector')
       .byInstance(new Injector(this.context));
 
     return this.context;

@@ -1,4 +1,4 @@
-const ModuleLoader = require('../module-loader');
+const ModuleLoader = require('../../module-loader');
 
 class Discoverable {
 

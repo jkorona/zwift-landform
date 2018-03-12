@@ -1,7 +1,7 @@
-const assert = require("assert");
+const assert = require('assert');
 
-const BeanScope = require("./bean-scope");
-const BeanRegistrationBuilder = require("./bean-registration-builder");
+const BeanScope = require('./internal/bean-scope');
+const BeanRegistrationBuilder = require('./internal/bean-registration-builder');
 
 class Context {
   constructor() {

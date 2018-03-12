@@ -1,5 +1,5 @@
 const Context = require('./context');
-const Injector = require('./injector');
+const Injector = require('./extensions/injector');
 const ApplicationContextBuilder = require('./application-context-builder');
 
 module.exports = {

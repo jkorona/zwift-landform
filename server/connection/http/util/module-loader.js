@@ -13,7 +13,6 @@ class ModuleLoader {
     const { cwd, pattern, dir } = { ...DEFAULT_CONFIG, ...config };
 
     const files = glob.sync(path.join(dir, pattern), { cwd });
-
     return files.map((fileName) => require(path.join(cwd, fileName)));
   }
 

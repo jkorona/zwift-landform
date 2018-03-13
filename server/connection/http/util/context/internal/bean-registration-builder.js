@@ -7,7 +7,8 @@ class BeanRegistrationBuilder {
     this.store = store;
     this.descriptor = {
       scope: BeanScope.SINGLETON,
-      dependencyIds: []
+      dependencyIds: [],
+      eager: false
     };
   }
 
@@ -27,6 +28,11 @@ class BeanRegistrationBuilder {
 
   scope(value) {
     this.descriptor.scope = value;
+    return this;
+  }
+
+  isEager() {
+    this.descriptor.eager = true;
     return this;
   }
 
@@ -60,6 +66,10 @@ class BeanRegistrationBuilder {
   }
 
   _save() {
+    if (this.descriptor.eager) {
+      assert(BeanScope.SINGLETON.equals(this.descriptor.scope), 'Only singletons can be eager.');
+    }
+    
     this.store.save(this.descriptor)
   }
 }

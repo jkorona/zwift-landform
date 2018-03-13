@@ -6,9 +6,14 @@ const BeanRegistrationBuilder = require('./internal/bean-registration-builder');
 class Context {
   constructor() {
     this.beans = {};
+    this.eager = [];
   }
 
-  bootstrap() { }
+  bootstrap() { 
+    this.eager.forEach((id) => {
+      this.locate(id);
+    });
+  }
 
   has(id) {
     return this.beans.hasOwnProperty(id);
@@ -58,6 +63,10 @@ class Context {
 
       return instance;
     };
+
+    if (descriptor.eager) {
+      this.eager.push(descriptor.id);
+    }
 
     this.beans[descriptor.id] = descriptor;
   }

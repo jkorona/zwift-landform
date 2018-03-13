@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+const { spy } = require('sinon');
 const { Context } = require('../../../../../../server/connection/http/util/context');
 
 describe('Context', () => {
@@ -116,5 +117,31 @@ describe('Context', () => {
 
     // when => then
     expect(action).to.throw('You cannot use prototype scope with instance.');
+  });
+
+  it('should immediately initialize eager beans', () => {
+    // given
+    const spyFn = spy();
+    class DummyClass {
+      constructor() { spyFn() };
+    }
+    ctx.register().isEager().byClass(DummyClass);
+
+    // when
+    ctx.bootstrap();
+
+    // then
+    expect(spyFn.calledOnce).to.be.true;
+  });
+
+  it('should throw if prototype registered as eager', () => {
+    // given
+    const action = () => ctx.register()
+      .asPrototype()
+      .isEager()
+      .byClass(BasicClass);
+
+    // when => then
+    expect(action).to.throw('Only singletons can be eager.');
   });
 });

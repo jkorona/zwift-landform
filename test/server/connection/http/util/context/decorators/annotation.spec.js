@@ -1,16 +1,16 @@
 const { expect } = require('chai');
 const { spy } = require('sinon');
 
-import { ClassAnnotation } from '../../../../../../../server/connection/http/util/context/decorators/annotation';
+import { classAnnotation } from '../../../../../../../server/connection/http/util/context/decorators/annotation';
 
-describe.only('annotation', () => {
+describe('annotation', () => {
 
   describe('classAnnotation', () => {
 
     it('should execute simple annotation on class', () => {
       // given
       const fn = spy();
-      const Simple = ClassAnnotation(fn);
+      const Simple = classAnnotation(fn);
 
       // when
       @Simple('foo', 'bar')
@@ -27,8 +27,8 @@ describe.only('annotation', () => {
       const fn1 = spy();
       const fn2 = spy();
 
-      const Simple = ClassAnnotation(fn1);
-      const Complex = ClassAnnotation(fn2).extends(Simple('foo'));
+      const Simple = classAnnotation(fn1);
+      const Complex = classAnnotation(fn2).extends(Simple('foo'));
 
       // when
       @Complex('bar')

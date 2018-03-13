@@ -1,5 +1,5 @@
 
-function ClassAnnotation(fn) {
+function classAnnotation(fn) {
   function annotation(...params) {
     return (target) => {
       const ctx = { class: target, prototype: target.prototype };
@@ -18,5 +18,5 @@ function ClassAnnotation(fn) {
 }
 
 module.exports = {
-  ClassAnnotation
+  classAnnotation
 }

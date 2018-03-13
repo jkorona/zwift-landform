@@ -5,7 +5,7 @@ const BeanScope = require('../../../../../../../server/connection/http/util/cont
 
 describe('Component annotation', () => {
 
-  it('should add metdata information to class with default configuration', () => {
+  it('should add metadata information to class with default configuration', () => {
     // when
     @Component()
     class T {}
@@ -18,7 +18,7 @@ describe('Component annotation', () => {
     });
   });
 
-  it('should add metdata information to class with custom configuration', () => {
+  it('should add metadata information to class with custom configuration', () => {
     // when
     @Component({ id: 'foo', scope: BeanScope.PROTOYPE })
     class T {}

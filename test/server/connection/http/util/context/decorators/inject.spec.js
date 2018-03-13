@@ -2,7 +2,7 @@ const { expect } = require('chai');
 
 const Inject = require('../../../../../../../server/connection/http/util/context/decorators/inject');
 
-describe.only('Inject annotation', () => {
+describe('Inject annotation', () => {
 
   it('should add metadata information read from constructor automatically', () => {
     // when

@@ -18,14 +18,15 @@ class BeanRegistrationBuilder {
   }
 
   asPrototype() {
-    this.descriptor.scope = BeanScope.PROTOYPE;
-
-    return this;
+    return this.scope(BeanScope.PROTOYPE);
   }
 
   asSingleton() {
-    this.descriptor.scope = BeanScope.SINGLETON;
+    return this.scope(BeanScope.SINGLETON);
+  }
 
+  scope(value) {
+    this.descriptor.scope = value;
     return this;
   }
 

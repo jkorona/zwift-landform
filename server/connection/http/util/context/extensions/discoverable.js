@@ -12,9 +12,27 @@ class Discoverable {
   }
 
   bootstrap() {
+    this.lookup();
+
     this.context.bootstrap();
     
     return this;
+  }
+
+  lookup() {
+    const modules = ModuleLoader.load(this.config);
+    
+    modules.forEach((module) => {
+      if (module.$$component) {
+        const { id, scope } = module.$$component;
+        const dependencies = module.$$inject || [];
+
+        this.register()
+          .withId(id)
+          .scope(scope)
+          .byClass(module, ...dependencies);
+      }
+    });
   }
 
   has(id) {
@@ -33,3 +51,5 @@ class Discoverable {
     return this.context.register();
   }
 }
+
+module.exports = Discoverable;

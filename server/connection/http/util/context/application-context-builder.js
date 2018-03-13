@@ -36,6 +36,8 @@ class ApplicationContextBuilder {
       .withId('injector')
       .byInstance(new Injector(this.context));
 
+    this.context.bootstrap();
+
     return this.context;
   }
 }

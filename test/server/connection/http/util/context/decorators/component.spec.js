@@ -14,20 +14,22 @@ describe('Component annotation', () => {
     expect(T.$$component).to.be.ok;
     expect(T.$$component).to.eql({
       id: T.name,
-      scope: BeanScope.SINGLETON
+      scope: BeanScope.SINGLETON,
+      eager: false
     });
   });
 
   it('should add metadata information to class with custom configuration', () => {
     // when
-    @Component({ id: 'foo', scope: BeanScope.PROTOYPE })
+    @Component({ id: 'foo', scope: BeanScope.PROTOYPE, eager: true })
     class T {}
 
     // then
     expect(T.$$component).to.be.ok;
     expect(T.$$component).to.eql({
       id: 'foo',
-      scope: BeanScope.PROTOYPE
+      scope: BeanScope.PROTOYPE,
+      eager: true
     });
   });
 

@@ -15,22 +15,27 @@ class Discoverable {
     this.lookup();
 
     this.context.bootstrap();
-    
+
     return this;
   }
 
   lookup() {
     const modules = ModuleLoader.load(this.config);
-    
+
     modules.forEach((module) => {
       if (module.$$component) {
-        const { id, scope } = module.$$component;
+        const { id, scope, eager } = module.$$component;
         const dependencies = module.$$inject || [];
 
-        this.register()
+        const registration = this.register()
           .withId(id)
-          .scope(scope)
-          .byClass(module, ...dependencies);
+          .scope(scope);
+
+        if (eager) {
+          registration.isEager();
+        }
+
+        registration.byClass(module, ...dependencies);
       }
     });
   }

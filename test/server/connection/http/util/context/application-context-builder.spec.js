@@ -6,13 +6,17 @@ const {
   Injector
 } = require('../../../../../../server/connection/http/util/context');
 
+describe.only('ApplicationContextBuilder', () => {
 
+  it('should produce instance of Context', () => {
+    // when
+    const ctx = ApplicationContextBuilder.create().build();
 
-describe('ApplicationContextBuilder', () => {
+    // then
+    expect(ctx).to.be.instanceOf(Context);
+  });
 
   it('should include context and injector global instances', () => {
-    // given
-
     // when
     const ctx = ApplicationContextBuilder.create().build();
 
@@ -21,6 +25,19 @@ describe('ApplicationContextBuilder', () => {
     expect(ctx.locate('injector')).to.be.instanceOf(Injector);
 
     expect(ctx.locate('context')).to.equal(ctx);
+  });
+
+  it('should allow including node std library', () => {
+    // when
+    const ctx = ApplicationContextBuilder
+      .create()
+      .includeStd()
+      .build();
+
+    // then
+    expect(ctx.locate('path')).to.be.ok;
+    expect(ctx.locate('fs')).to.be.ok;
+    expect(ctx.locate('http')).to.be.ok;
   });
 
 });

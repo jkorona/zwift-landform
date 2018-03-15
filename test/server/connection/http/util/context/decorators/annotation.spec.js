@@ -46,6 +46,24 @@ describe('annotation', () => {
       expect(fn1.calledBefore(fn2)).to.be.true;
     });
 
+    it('should store metadata on class if name provided and value returned', () => {
+      // given
+      const Annotation = classAnnotation(function annotation() {
+        return {
+          senseOfLife: 42
+        };
+      });
+
+      // when
+      @Annotation()
+      class T {}
+
+      // then
+      expect(T.$$annotation).to.eql({
+        senseOfLife: 42
+      });
+    });
+
   });
 
 });

@@ -6,7 +6,7 @@ const {
   Injector
 } = require('../../../../../../server/connection/http/util/context');
 
-describe.only('ApplicationContextBuilder', () => {
+describe('ApplicationContextBuilder', () => {
 
   it('should produce instance of Context', () => {
     // when

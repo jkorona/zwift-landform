@@ -1,9 +1,9 @@
 const BeanScope = require('../bean-scope');
 const { classAnnotation } = require('./annotation');
 
-module.exports = classAnnotation(function ({ id, scope, eager = false } = {}) {
+module.exports = classAnnotation(function component({ id, scope, eager = false } = {}) {
   id = id || this.class.name;
   scope = scope || BeanScope.SINGLETON;
 
-  this.class.$$component = { id, scope, eager };
+  return { id, scope, eager };
 });

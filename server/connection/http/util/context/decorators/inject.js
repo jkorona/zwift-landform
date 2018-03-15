@@ -12,10 +12,10 @@ function readConstructorParams(constructor) {
   return result;
 }
 
-module.exports = classAnnotation(function (...args) {
+module.exports = classAnnotation(function inject(...args) {
   if (!args.length) {
     args = readConstructorParams(this.class);
   }
 
-  this.class.$$inject = args;
+  return args;
 });

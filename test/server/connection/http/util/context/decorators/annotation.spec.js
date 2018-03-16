@@ -46,7 +46,31 @@ describe('annotation', () => {
       expect(fn1.calledBefore(fn2)).to.be.true;
     });
 
-    it('should store metadata on class if name provided and value returned', () => {
+    it('should get annotation name from constructor function', () => {
+      // given
+      const Annotation = classAnnotation(function annotation() { });
+
+      // when
+      @Annotation()
+      class T { }
+
+      // then
+      expect(T.annotation).to.be.true;
+    });
+
+    it('should get annotation name from parameter', () => {
+      // given
+      const Annotation = classAnnotation('annotation', function () { });
+
+      // when
+      @Annotation()
+      class T { }
+
+      // then
+      expect(T.annotation).to.be.true;
+    });
+
+    it('should store metadata on class if value returned', () => {
       // given
       const Annotation = classAnnotation(function annotation() {
         return {
@@ -56,12 +80,27 @@ describe('annotation', () => {
 
       // when
       @Annotation()
-      class T {}
+      class T { }
 
       // then
-      expect(T.$$annotation).to.eql({
+      expect(T.annotation).to.eql({
         senseOfLife: 42
       });
+    });
+
+    it('should throw error if required annotation not provided', () => {
+      // given
+      const A = classAnnotation('a', () => {});
+      const B = classAnnotation('b', () => {}).requires(A);
+
+      // when
+      function action() {
+        @B()
+        class T {}
+      }
+
+      // then
+      expect(action).to.throw(Error);
     });
 
   });

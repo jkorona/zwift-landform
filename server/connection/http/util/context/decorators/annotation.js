@@ -17,7 +17,6 @@ function collectParams(params) {
 }
 
 function checkRequired(annotation, target) {
-  console.log(annotation.annotationName);
   (annotation.$$required || [])
     .forEach((required) => assert(
       target[required],
@@ -39,7 +38,7 @@ function classAnnotation(...params) {
       runProcessors(annotation.$$processors, target);
       checkRequired(annotation, target);
 
-      target[name] = fn.apply(ctx, params) || true;
+      target[name] = fn.apply(ctx, params) || {};
     }
   }
   

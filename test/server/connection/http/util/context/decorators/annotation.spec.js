@@ -55,7 +55,7 @@ describe('annotation', () => {
       class T { }
 
       // then
-      expect(T.annotation).to.be.true;
+      expect(T.annotation).to.be.ok;
     });
 
     it('should get annotation name from parameter', () => {
@@ -67,7 +67,7 @@ describe('annotation', () => {
       class T { }
 
       // then
-      expect(T.annotation).to.be.true;
+      expect(T.annotation).to.be.ok;
     });
 
     it('should store metadata on class if value returned', () => {

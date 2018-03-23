@@ -1,17 +1,23 @@
 const Context = require('./context');
-const Injector = require('./extensions/injector');
 const ApplicationContextBuilder = require('./application-context-builder');
-const BeanScope = require('./bean-scope');
 const contextConfigurator = require('./context-configurator');
-const { classAnnotation } = require('./decorators/annotation');
-const queries = require('./extensions/queries');
+const BeanScope = require('./bean-scope');
 
-module.exports = {
+const Injector = require('./extensions/injector');
+const queries = require('./extensions/queries');
+const nodeModulesConfigurator = require('./extensions/node-modules-configurator');
+
+const { classAnnotation } = require('./decorators/annotation');
+
+module.exports = {  
   Context,
-  Injector,
   ApplicationContextBuilder,
-  BeanScope,
   contextConfigurator,
-  classAnnotation,
-  queries
+  BeanScope,
+
+  Injector,
+  queries,
+  nodeModulesConfigurator,
+
+  classAnnotation
 };

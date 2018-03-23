@@ -3,8 +3,6 @@ const Context = require('./context');
 const Discoverable = require('./extensions/discoverable');
 const Injector = require('./extensions/injector');
 
-const nodeStdConfigurator = require('./internal/node-std-configurator');
-
 class ApplicationContextBuilder {
 
   constructor() {
@@ -22,17 +20,13 @@ class ApplicationContextBuilder {
     return this;
   }
 
-  includeStd() {
-    return this.configurator(nodeStdConfigurator)
-  }
-
   configurator(fn) {
     this.configurators.push(fn);
 
     return this;
   }
 
-  build() {
+  build(bootstrap = true) {
     this.context
       .register()
       .withId('context')
@@ -44,7 +38,10 @@ class ApplicationContextBuilder {
       .byInstance(new Injector(this.context));
 
     this.configurators.forEach(configurator => configurator(this.context));
-    this.context.bootstrap();
+
+    if (bootstrap) {
+      this.context.bootstrap();
+    }
 
     return this.context;
   }

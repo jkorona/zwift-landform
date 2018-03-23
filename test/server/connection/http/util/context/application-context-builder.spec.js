@@ -1,9 +1,10 @@
 const { expect } = require('chai');
 
 const {
-  ApplicationContextBuilder,
   Context,
-  Injector
+  ApplicationContextBuilder,
+  Injector,
+  nodeModulesConfigurator
 } = require('../../../../../../server/connection/http/util/context');
 
 describe('ApplicationContextBuilder', () => {
@@ -31,7 +32,7 @@ describe('ApplicationContextBuilder', () => {
     // when
     const ctx = ApplicationContextBuilder
       .create()
-      .includeStd()
+      .configurator(nodeModulesConfigurator)
       .build();
 
     // then

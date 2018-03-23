@@ -18,6 +18,12 @@ class BeanRegistrationBuilder {
     return this;
   }
 
+  bindTo(type) {
+    this.descriptor.type = type;
+
+    return this;
+  }
+
   asPrototype() {
     return this.scope(BeanScope.PROTOYPE);
   }
@@ -50,6 +56,10 @@ class BeanRegistrationBuilder {
     if (!this.descriptor.id) {
       this.descriptor.id = constructorFn.name;
     }
+    if (!this.descriptor.type) {
+      this.descriptor.type = constructorFn;
+    }
+
     this.descriptor.dependencyIds = dependencyIds;
     this.descriptor.factory = dependencies => new constructorFn(...dependencies);
 
@@ -69,7 +79,7 @@ class BeanRegistrationBuilder {
     if (this.descriptor.eager) {
       assert(BeanScope.SINGLETON.equals(this.descriptor.scope), 'Only singletons can be eager.');
     }
-    
+
     this.store.save(this.descriptor)
   }
 }

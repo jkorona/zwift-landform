@@ -1,6 +1,9 @@
+import { utimes } from 'fs';
+
 const { expect } = require('chai');
 const { spy } = require('sinon');
 const { Context } = require('../../../../../../server/connection/http/util/context');
+const q = require('../../../../../../server/connection/http/util/context/extensions/queries');
 
 describe('Context', () => {
 
@@ -144,4 +147,25 @@ describe('Context', () => {
     // when => then
     expect(action).to.throw('Only singletons can be eager.');
   });
+
+  it('should expose method to query context beans', () => {
+    // given
+    class A { }
+    class B { }
+    class C { }
+
+    ctx.register().byClass(A);
+    ctx.register().bindTo(A).byClass(B);
+    ctx.register().byClass(C);
+
+    // when
+    const result = ctx.find(({ type }) => type === A);
+
+    // then
+    expect(result).to.have.lengthOf(2);
+        
+    expect(result[0]).to.be.instanceOf(A);
+    expect(result[1]).to.be.instanceOf(B);
+  });
+
 });

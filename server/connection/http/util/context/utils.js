@@ -12,7 +12,10 @@ function get(object, ...paths) {
 
 function hasAnnotation(type, annotation) {
   if (!type) return false;
-  if (!!type[annotation]) return true;
+
+  const name = typeof (annotation) === 'string' ? annotation : annotation.annotationName;
+  if (!!type[name]) return true;
+
   return hasAnnotation(type.prototype, annotation);
 };
 

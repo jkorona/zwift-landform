@@ -9,7 +9,7 @@ class Context {
     this.eager = [];
   }
 
-  bootstrap() { 
+  bootstrap() {
     this.eager.forEach((id) => {
       this.locate(id);
     });
@@ -29,6 +29,12 @@ class Context {
 
   locateAll(...ids) {
     return ids.map(id => this.locate(id));
+  }
+
+  find(predicate) {
+    return Object.values(this.beans)
+      .filter(predicate)
+      .map(bean => bean.getInstance());
   }
 
   register() {

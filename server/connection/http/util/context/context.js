@@ -50,6 +50,7 @@ class Context {
     let recursionStop = false;
     descriptor.getInstance = () => {
       let { id, scope, instance, dependencyIds } = descriptor;
+      let dependencies;
 
       if (!(BeanScope.SINGLETON.equals(scope) && instance)) {
 
@@ -57,8 +58,11 @@ class Context {
           assert.fail(`A cyclic dependency detected in bean ${id}`);
         }
         recursionStop = true;
-
-        const dependencies = this.locateAll(...dependencyIds);
+        try {
+          dependencies = this.locateAll(...dependencyIds);
+        } catch (e) {
+          throw new Error(`Failed to initialize ${id} caused by: ${e.message}`);
+        }
         instance = descriptor.factory(dependencies);
         if (BeanScope.SINGLETON.equals(scope)) {
           descriptor.instance = instance;

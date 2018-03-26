@@ -15,7 +15,7 @@ class ApplicationContextBuilder {
   }
 
   discoverable(config) {
-    this.context = Discoverable.create(this.context);
+    this.context = Discoverable.create(this.context, config);
 
     return this;
   }

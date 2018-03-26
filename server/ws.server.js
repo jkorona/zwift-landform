@@ -1,5 +1,6 @@
-var socketIO = require('socket.io');
+const { Component } = require('./connection/http/util/context/decorators');
 
+@Component()
 class WebSocketServer {
 
   constructor(connector) {

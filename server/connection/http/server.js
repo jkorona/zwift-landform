@@ -1,3 +1,7 @@
+const { Component, Inject } = require('../../connection/http/util/context/decorators')
+
+@Inject()
+@Component()
 class HttpServer {
 
   static get DEFAULT_CONFIG() {

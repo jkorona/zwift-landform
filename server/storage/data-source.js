@@ -1,6 +1,13 @@
+const {
+  Component,
+  Inject
+} = require('../connection/http/util/context/decorators');
+
 const stravaConnector = require('../integration/strava.integration');
 
-class DataStore {
+@Inject()
+@Component({ id: 'dataSource' })
+class DataSource {
 
   constructor(store) {
     this.store = store;
@@ -29,4 +36,4 @@ class DataStore {
 
 }
 
-module.exports = DataStore;
+module.exports = DataSource;

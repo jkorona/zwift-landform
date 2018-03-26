@@ -3,6 +3,9 @@ function contextConfigurator(fn) {
     const ctx = {
       register() {
         return context.register();
+      },
+      extend(configurator) {
+        configurator(context);
       }
     };
 

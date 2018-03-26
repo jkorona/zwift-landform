@@ -1,7 +1,7 @@
 const { HttpController, Endpoint } = require('../connection/http');
 
 @HttpController
-class HttpController {
+class RestController {
 
   controller(dataSource) {
     this.dataSource = dataSource;
@@ -19,4 +19,4 @@ class HttpController {
 
 }
 
-module.exports = HttpController;
+module.exports = RestController;

@@ -1,3 +1,6 @@
+const { Component } = require('../connection/http/util/context/decorators');
+
+@Component({ id: 'store' })
 class MockStore {
 
   init() {

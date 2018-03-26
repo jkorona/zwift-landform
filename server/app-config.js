@@ -2,13 +2,13 @@ const sockets = require('socket.io');
 
 const {
   contextConfigurator,
-  nodeModulesConfigurator,
+  nodeCoreConfigurator,
   ApplicationContextBuilder
 } = require('./context');
 
 module.exports = ApplicationContextBuilder.create()
   .discoverable({ dir: 'server' })
-  .configurator(nodeModulesConfigurator)
+  .configurator(nodeCoreConfigurator)
   .configurator(contextConfigurator(function () {
     this.register().withId('sockets').byInstance(sockets);
   }))

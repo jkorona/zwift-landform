@@ -1,3 +1,5 @@
+const Discoverer = require('../extensions/discoverer');
+
 function contextConfigurator(fn) {
   return function (context) {
     const ctx = {
@@ -7,12 +9,12 @@ function contextConfigurator(fn) {
       extend(configurator) {
         configurator(context);
       },
-      discover(config = {}) {
-        
+      discover(config) {
+        context.locate('Discoverer').search(config);
       }
     };
 
-    fn.call(ctx);
+    fn.call(ctx, context);
   }
 }
 

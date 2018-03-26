@@ -4,7 +4,7 @@ const {
   Context,
   ApplicationContextBuilder,
   Injector,
-  nodeModulesConfigurator
+  nodeCoreConfigurator
 } = require('../../../../../../server/context');
 
 describe('ApplicationContextBuilder', () => {
@@ -32,7 +32,7 @@ describe('ApplicationContextBuilder', () => {
     // when
     const ctx = ApplicationContextBuilder
       .create()
-      .configurator(nodeModulesConfigurator)
+      .configurator(nodeCoreConfigurator)
       .build();
 
     // then

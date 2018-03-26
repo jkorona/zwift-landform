@@ -1,13 +1,11 @@
 const Context = require('./context');
-
-const Discoverer = require('./extensions/discoverer');
-const Injector = require('./extensions/injector');
+const coreConfigurator = require('./configurators/core-configurator');
 
 class ApplicationContextBuilder {
 
   constructor() {
     this.context = new Context();
-    this.configurators = [];
+    this.configurators = [coreConfigurator];
     this.paths = [];
   }
 
@@ -27,7 +25,6 @@ class ApplicationContextBuilder {
   }
 
   build(bootstrap = true) {
-    this._registerBasics();
     this._runConfigurators();
     this._runDiscoverer();
 
@@ -38,24 +35,12 @@ class ApplicationContextBuilder {
     return this.context;
   }
 
-  _registerBasics() {
-    this.context
-      .register()
-      .withId('context')
-      .byInstance(this.context);
-
-    this.context
-      .register()
-      .withId('injector')
-      .byInstance(new Injector(this.context));
-  }
-
   _runConfigurators() {
     this.configurators.forEach(configurator => configurator(this.context));
   }
 
   _runDiscoverer() {
-    const discoverer = Discoverer.create(this.context);
+    const discoverer = this.context.locate('Discoverer');
     this.paths.forEach(path => discoverer.search(path));
   }
 

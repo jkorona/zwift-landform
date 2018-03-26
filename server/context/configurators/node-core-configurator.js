@@ -2,7 +2,7 @@ const fs = require('fs');
 const http = require('http');
 const path = require('path');
 
-const contextConfigurator = require('../context-configurator');
+const contextConfigurator = require('./context-configurator');
 
 module.exports = contextConfigurator(function () {
   this.register().withId('fs').byInstance(fs);

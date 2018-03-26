@@ -6,6 +6,9 @@ function contextConfigurator(fn) {
       },
       extend(configurator) {
         configurator(context);
+      },
+      discover(config = {}) {
+        
       }
     };
 

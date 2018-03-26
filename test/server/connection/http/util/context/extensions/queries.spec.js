@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 
-const { Context, classAnnotation, queries } = require('../../../../../../../server/connection/http/util/context');
+const { Context, classAnnotation, queries } = require('../../../../../../../server/context');
 
 describe('queries', () => {
 

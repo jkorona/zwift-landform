@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { stub, spy } = require('sinon');
 
-const { Injector } = require('../../../../../../../server/connection/http/util/context');
+const { Injector } = require('../../../../../../../server/context');
 
 describe('Injector', () => {
 

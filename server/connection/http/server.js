@@ -1,4 +1,4 @@
-const { Component, Inject } = require('../../connection/http/util/context/decorators')
+const { Component, Inject } = require('../../context/decorators')
 
 @Inject()
 @Component()

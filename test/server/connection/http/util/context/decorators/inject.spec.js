@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 
-const Inject = require('../../../../../../../server/connection/http/util/context/decorators/inject');
+const Inject = require('../../../../../../../server/context/decorators/inject');
 
 describe('Inject annotation', () => {
 

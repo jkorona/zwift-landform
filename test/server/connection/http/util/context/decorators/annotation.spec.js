@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { spy } = require('sinon');
 
-import { classAnnotation } from '../../../../../../../server/connection/http/util/context/decorators/annotation';
+import { classAnnotation } from '../../../../../../../server/context/decorators/annotation';
 
 describe('annotation', () => {
 

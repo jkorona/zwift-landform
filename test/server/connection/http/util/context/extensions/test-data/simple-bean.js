@@ -1,4 +1,4 @@
-const { Component } = require('../../../../../../../../server/connection/http/util/context/decorators');
+const { Component } = require('../../../../../../../../server/context/decorators');
 
 @Component({ id: 'simple' })
 class SimpleBean {

@@ -1,4 +1,4 @@
-const { Component } = require('../connection/http/util/context/decorators');
+const { Component } = require('../context/decorators');
 
 @Component({ id: 'store' })
 class MockStore {

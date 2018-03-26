@@ -5,7 +5,7 @@ const {
   ApplicationContextBuilder,
   Injector,
   nodeModulesConfigurator
-} = require('../../../../../../server/connection/http/util/context');
+} = require('../../../../../../server/context');
 
 describe('ApplicationContextBuilder', () => {
 

@@ -1,5 +1,7 @@
 const assert = require('assert');
 const ZwiftAccount = require('zwift-mobile-api');
+const { Component } = require('../context/decorators');
+
 const riderStatusParser = require('./parsers/zwift-rider-status.parser');
 
 function checkEnvironment() {
@@ -14,8 +16,6 @@ function decodeBase64(code) {
 }
 
 checkEnvironment();
-
-const { Component } = require('../connection/http/util/context/decorators');
 
 const user = {
   name: process.env.ZWIFT_USER,

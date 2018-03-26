@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 
-const { Context } = require('../../../../../../../server/connection/http/util/context');
-const Discoverable = require('../../../../../../../server/connection/http/util/context/extensions/discoverable');
+const { Context } = require('../../../../../../../server/context');
+const Discoverable = require('../../../../../../../server/context/extensions/discoverable');
 
 const SimpleBean = require('./test-data/simple-bean');
 

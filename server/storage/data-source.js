@@ -1,7 +1,7 @@
 const {
   Component,
   Inject
-} = require('../connection/http/util/context/decorators');
+} = require('../context/decorators');
 
 const stravaConnector = require('../integration/strava.integration');
 

@@ -4,7 +4,7 @@ const {
   contextConfigurator,
   nodeModulesConfigurator,
   ApplicationContextBuilder
-} = require('./connection/http/util/context');
+} = require('./context');
 
 module.exports = ApplicationContextBuilder.create()
   .discoverable({ dir: 'server' })

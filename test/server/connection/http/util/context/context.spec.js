@@ -2,8 +2,8 @@ import { utimes } from 'fs';
 
 const { expect } = require('chai');
 const { spy } = require('sinon');
-const { Context } = require('../../../../../../server/connection/http/util/context');
-const q = require('../../../../../../server/connection/http/util/context/extensions/queries');
+const { Context } = require('../../../../../../server/context');
+const q = require('../../../../../../server/context/extensions/queries');
 
 describe('Context', () => {
 

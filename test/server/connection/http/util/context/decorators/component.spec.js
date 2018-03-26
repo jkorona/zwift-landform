@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 
-const Component = require('../../../../../../../server/connection/http/util/context/decorators/component');
-const BeanScope = require('../../../../../../../server/connection/http/util/context/bean-scope');
+const Component = require('../../../../../../../server/context/decorators/component');
+const BeanScope = require('../../../../../../../server/context/bean-scope');
 
 describe('Component annotation', () => {
 

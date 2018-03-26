@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { spy } = require('sinon');
-const { contextConfigurator, Context } = require('../../../../../../server/connection/http/util/context');
+const { contextConfigurator, Context } = require('../../../../../../server/context');
 
 describe('contextConfigurator', () => {
 

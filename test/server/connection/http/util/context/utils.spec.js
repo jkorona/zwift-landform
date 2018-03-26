@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { get, hasAnnotation } = require('../../../../../../server/connection/http/util/context/utils');
+const { get, hasAnnotation } = require('../../../../../../server/context/utils');
 
 describe('utils', () => {
 

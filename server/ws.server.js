@@ -1,6 +1,7 @@
-const { Component } = require('./connection/http/util/context/decorators');
+const { Component, Inject } = require('./connection/http/util/context/decorators');
 
 @Component()
+@Inject('sockets')
 class WebSocketServer {
 
   constructor(connector) {

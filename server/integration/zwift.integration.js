@@ -15,20 +15,16 @@ function decodeBase64(code) {
 
 checkEnvironment();
 
+const { Component } = require('../connection/http/util/context/decorators');
+
 const user = {
   name: process.env.ZWIFT_USER,
   password: decodeBase64(process.env.ZWIFT_PASSWORD)
 };
 
-let zwiftConnector;
-class ZwiftConnector {
 
-  static get instance() {
-    if (!zwiftConnector) {
-      zwiftConnector = new ZwiftConnector();
-    }
-    return zwiftConnector;
-  }
+@Component()
+class ZwiftIntegration {
 
   constructor() {
     const account = new ZwiftAccount(user.name, user.password);
@@ -59,4 +55,4 @@ class ZwiftConnector {
 
 }
 
-module.exports = ZwiftConnector;
+module.exports = ZwiftIntegration;

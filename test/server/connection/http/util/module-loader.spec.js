@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 
-const ModuleLoader = require('../../../../../server/connection/http/util/module-loader');
+const ModuleLoader = require('../../../../../server/connection/http/util/context/internal/module-loader');
 const MockController = require('../mock/mock.controller');
 
 describe('ModuleLoader', () => {

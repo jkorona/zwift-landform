@@ -6,10 +6,15 @@ const {
   ApplicationContextBuilder
 } = require('./context');
 
+
+const appConfigurator = contextConfigurator(function () {
+  this.extend(nodeCoreConfigurator);
+  this.discover({ dir: 'server' });
+
+  this.register().withId('sockets').byInstance(sockets);
+});
+
+
 module.exports = ApplicationContextBuilder.create()
-  .discoverable({ dir: 'server' })
-  .configurator(nodeCoreConfigurator)
-  .configurator(contextConfigurator(function () {
-    this.register().withId('sockets').byInstance(sockets);
-  }))
+  .configurator(appConfigurator)
   .build();

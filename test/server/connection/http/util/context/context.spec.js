@@ -3,7 +3,6 @@ import { utimes } from 'fs';
 const { expect } = require('chai');
 const { spy } = require('sinon');
 const { Context } = require('../../../../../../server/context');
-const q = require('../../../../../../server/context/extensions/queries');
 
 describe('Context', () => {
 
@@ -30,7 +29,7 @@ describe('Context', () => {
 
   it('should register by factory', () => {
     // given
-    const factory = () => new BasicClass()
+    const factory = () => new BasicClass();
 
     // when
     ctx.register().withId('BasicClass').byFactory(factory);
@@ -41,7 +40,7 @@ describe('Context', () => {
 
   it('should require explicit id when registered by factory', () => {
     // given
-    const factory = () => new BasicClass()
+    const factory = () => new BasicClass();
     const action = () => ctx.register().byFactory(factory);
 
     // when => then
@@ -50,7 +49,7 @@ describe('Context', () => {
 
   it('should register by instance', () => {
     // given
-    const instance = new BasicClass()
+    const instance = new BasicClass();
 
     // when
     ctx.register().byInstance(instance);
@@ -163,7 +162,7 @@ describe('Context', () => {
 
     // then
     expect(result).to.have.lengthOf(2);
-        
+
     expect(result[0]).to.be.instanceOf(A);
     expect(result[1]).to.be.instanceOf(B);
   });

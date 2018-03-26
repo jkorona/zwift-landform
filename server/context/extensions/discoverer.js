@@ -2,8 +2,8 @@ const ModuleLoader = require('../internal/module-loader');
 
 class Discoverer {
 
-  static create(context,) {
-    return new Discoverable(context);
+  static create(context) {
+    return new Discoverer(context);
   }
 
   constructor(context) {
@@ -12,7 +12,7 @@ class Discoverer {
 
   search(config) {
     const context = this.context;
-    const modules = ModuleLoader.load(this.config);
+    const modules = ModuleLoader.load(config);
 
     modules.forEach((module) => {
       if (module.$$component) {
@@ -31,7 +31,7 @@ class Discoverer {
       }
     });
   }
-  
+
 }
 
 module.exports = Discoverer;

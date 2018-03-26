@@ -1,21 +1,21 @@
 const { expect } = require('chai');
 
 const { Context } = require('../../../../../../../server/context');
-const Discoverable = require('../../../../../../../server/context/extensions/discoverable');
+const Discoverer = require('../../../../../../../server/context/extensions/discoverer');
 
 const SimpleBean = require('./test-data/simple-bean');
 
-describe('DiscoverableContext', () => {
+describe('Discoverer', () => {
 
   const CONFIG = {
     dir: 'test/server/connection/http/util/context/extensions/test-data',
     pattern: '**/*.js'
-  }
+  };
   const ctx = new Context();
-  const dCtx = Discoverable.create(ctx, CONFIG);
+  const discoverer = Discoverer.create(ctx);
 
   before(() => {
-    dCtx.bootstrap();
+    discoverer.search(CONFIG);
   });
 
   it('should find two beans', () => {
@@ -28,7 +28,7 @@ describe('DiscoverableContext', () => {
 
   it('should inject dependencies', () => {
     // when
-    const cb = dCtx.locate('ComplexBean');
+    const cb = ctx.locate('ComplexBean');
 
     // then
     expect(cb.simple).to.be.instanceOf(SimpleBean);
